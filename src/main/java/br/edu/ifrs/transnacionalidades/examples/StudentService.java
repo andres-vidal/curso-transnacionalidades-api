@@ -16,5 +16,5 @@ public interface StudentService {
 
     public void update(Student student) throws StudentAlreadyExistsException, StudentValidationException;
 
-    public void delete(Long id);
+    public void delete(Long id) throws StudentDoesNotExistsException;
 }

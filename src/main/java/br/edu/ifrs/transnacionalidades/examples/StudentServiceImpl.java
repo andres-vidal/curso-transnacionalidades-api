@@ -79,9 +79,15 @@ public class StudentServiceImpl implements StudentService {
         studentDAO.update(student);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws StudentDoesNotExistsException {
 
         Student student = retrieve(id);
+
+        if (student == null) {
+
+            String message = "There is no student registered with the id " + id;
+            throw new StudentDoesNotExistsException(message);
+        }
 
         studentDAO.delete(student);
     }

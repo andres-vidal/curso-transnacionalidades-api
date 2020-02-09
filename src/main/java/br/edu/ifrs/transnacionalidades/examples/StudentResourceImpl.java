@@ -2,7 +2,6 @@ package br.edu.ifrs.transnacionalidades.examples;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -80,7 +79,7 @@ public class StudentResourceImpl implements StudentResource {
             studentService.delete(id);
             return Response.status(Status.OK).build();
 
-        } catch (EntityNotFoundException e) {
+        } catch (StudentDoesNotExistsException e) {
 
             return Response.status(Status.NOT_FOUND).entity("There is no student with id " + id).build();
         }

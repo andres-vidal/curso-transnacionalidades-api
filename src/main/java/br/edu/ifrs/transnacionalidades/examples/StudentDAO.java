@@ -30,6 +30,11 @@ public class StudentDAO {
         em.remove(student);
     }
 
+    public void delete(Student student) {
+
+        em.remove(student);
+    }
+
     public Student retrieve(Long id) {
 
         return em.find(Student.class, id);
