@@ -21,85 +21,135 @@ public class StudentServiceUpdateTest {
     private StudentServiceImpl studentService;
 
     private Student student;
+    private Student other;
 
     @Before
     public void init() {
 
         student = new Student("Andrés Vidal", LocalDate.of(1997, 8, 6), "andres.vidal1@example.com", "password");
         student.setId(1L);
+
+        other = new Student("Tomás Silvestre", LocalDate.of(1996, 4, 1), "tomas.silvestre@exemplo.com", "password");
+        other.setId(2L);
+
     }
 
-    public void success() throws StudentAlreadyExistsException, StudentValidationException {
+    @Test
+    public void success()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
 
+        when(studentDAO.retrieve(student.getId())).thenReturn(student);
+
+        studentService.update(student);
+    }
+
+    @Test
+    public void successOnEmailUpdate()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+
+        assert studentService != null;
+
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
         when(studentDAO.retrieve(student.getEmail())).thenReturn(null);
 
         studentService.update(student);
     }
 
     @Test(expected = StudentAlreadyExistsException.class)
-    public void failureStudentExists() throws StudentAlreadyExistsException, StudentValidationException {
+    public void failureStudentAlreadyExists()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
 
-        Student otherStudent = new Student();
-        otherStudent.setId(2L);
-
-        when(studentDAO.retrieve(student.getEmail())).thenReturn(otherStudent);
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
+        when(studentDAO.retrieve(student.getEmail())).thenReturn(other);
 
         studentService.update(student);
     }
 
-    @Test(expected = StudentValidationException.class)
-    public void failurePasswordMissing() throws StudentAlreadyExistsException, StudentValidationException {
+    @Test(expected = StudentDoesNotExistsException.class)
+    public void failureStudentDoesNotExist()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getId())).thenReturn(null);
+
+        studentService.update(student);
+    }
+
+    @Test
+    public void sucessPasswordMissing()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+
+        assert studentService != null;
+
+        when(studentDAO.retrieve(student.getEmail())).thenReturn(null);
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
 
         student.setPassword(null);
         studentService.update(student);
     }
 
-    @Test(expected = StudentValidationException.class)
-    public void failurePasswordEmpty() throws StudentAlreadyExistsException, StudentValidationException {
+    @Test
+    public void sucessPasswordEmpty()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getEmail())).thenReturn(null);
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
 
         student.setPassword("");
         studentService.update(student);
     }
 
-    @Test(expected = StudentValidationException.class)
-    public void failurePasswordBlank() throws StudentAlreadyExistsException, StudentValidationException {
+    @Test
+    public void successPasswordBlank()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getEmail())).thenReturn(null);
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
 
         student.setPassword("  ");
         studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailMissing() throws StudentAlreadyExistsException, StudentValidationException {
+    public void failureEmailMissing()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
 
         student.setEmail(null);
         studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailEmpty() throws StudentAlreadyExistsException, StudentValidationException {
+    public void failureEmailEmpty()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getId())).thenReturn(other);
 
         student.setEmail("");
         studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailBlank() throws StudentAlreadyExistsException, StudentValidationException {
+    public void failureEmailBlank()
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
         assert studentService != null;
+
+        when(studentDAO.retrieve(student.getId())).thenReturn(student);
 
         student.setEmail("  ");
         studentService.update(student);

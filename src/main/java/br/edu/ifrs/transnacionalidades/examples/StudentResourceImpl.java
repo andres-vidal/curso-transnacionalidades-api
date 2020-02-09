@@ -69,6 +69,10 @@ public class StudentResourceImpl implements StudentResource {
         } catch (StudentAlreadyExistsException e) {
 
             return Response.status(Status.CONFLICT).entity(e.getMessage()).build();
+
+        } catch (StudentDoesNotExistsException e) {
+
+            return Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
 

@@ -39,7 +39,7 @@ public class StudentServiceCreateTest {
     }
 
     @Test(expected = StudentAlreadyExistsException.class)
-    public void failureStudentExists() throws StudentAlreadyExistsException, StudentValidationException {
+    public void failureStudentAlreadyExists() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 

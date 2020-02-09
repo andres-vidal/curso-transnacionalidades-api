@@ -14,7 +14,8 @@ public interface StudentService {
 
     public List<Student> retrieve();
 
-    public void update(Student student) throws StudentAlreadyExistsException, StudentValidationException;
+    public void update(Student student)
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException;
 
     public void delete(Long id) throws StudentDoesNotExistsException;
 }

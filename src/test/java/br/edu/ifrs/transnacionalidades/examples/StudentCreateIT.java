@@ -88,7 +88,7 @@ public class StudentCreateIT {
     @Test
     @RunAsClient
     @InSequence(4)
-    public void failureStudentExists(@ArquillianResteasyResource("api/students") ResteasyWebTarget target) {
+    public void failureStudentAlreadyExists(@ArquillianResteasyResource("api/students") ResteasyWebTarget target) {
 
         assert target != null;
 
@@ -108,7 +108,7 @@ public class StudentCreateIT {
     @Test
     @InSequence(5)
     @Cleanup(phase = TestExecutionPhase.AFTER)
-    public void cleanAfterFailureStudentExists() {
+    public void cleanAfterFailureStudentAlreadyExists() {
     }
 
     @Test

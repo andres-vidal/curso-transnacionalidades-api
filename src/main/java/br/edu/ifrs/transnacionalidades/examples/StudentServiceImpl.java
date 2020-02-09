@@ -15,22 +15,6 @@ public class StudentServiceImpl implements StudentService {
     @Inject
     private StudentDAO studentDAO;
 
-    private void checkUnicity(Student student) throws StudentAlreadyExistsException {
-
-        Student persistedStudent = retrieve(student.getEmail());
-
-        if (persistedStudent != null) {
-            boolean areTheSameEntity = !persistedStudent.getId().equals(student.getId());
-            boolean isUnidentified = student.getId() == null;
-
-            if (isUnidentified || areTheSameEntity) {
-
-                String message = "A student with email " + student.getEmail() + " is already registered.";
-                throw new StudentAlreadyExistsException(message);
-            }
-        }
-    }
-
     private void validate(Student student) throws StudentValidationException {
 
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -47,7 +31,13 @@ public class StudentServiceImpl implements StudentService {
 
         student.setId(null);
         validate(student);
-        checkUnicity(student);
+
+        if (retrieve(student.getEmail()) != null) {
+
+            String message = "A student with email " + student.getEmail() + " is already registered.";
+            throw new StudentAlreadyExistsException(message);
+        }
+
         studentDAO.create(student);
     }
 
@@ -72,10 +62,26 @@ public class StudentServiceImpl implements StudentService {
         return studentDAO.retrieve();
     }
 
-    public void update(Student student) throws StudentAlreadyExistsException, StudentValidationException {
+    public void update(Student student)
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
 
+        Student persistedStudent = retrieve(student.getId());
+
+        if (persistedStudent == null) {
+
+            String message = "There is no student registered with the id " + student.getId();
+            throw new StudentDoesNotExistsException(message);
+        }
+
+        student.setPassword(persistedStudent.getPassword());
         validate(student);
-        checkUnicity(student);
+
+        if (!student.getEmail().equals(persistedStudent.getEmail()) && retrieve(student.getEmail()) != null) {
+
+            String message = "A student with email " + student.getEmail() + " is already registered.";
+            throw new StudentAlreadyExistsException(message);
+        }
+
         studentDAO.update(student);
     }
 
