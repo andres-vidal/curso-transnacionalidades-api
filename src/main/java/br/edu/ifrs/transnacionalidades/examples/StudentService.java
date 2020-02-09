@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface StudentService {
 
-    public void create(Student student) throws StudentExistsException, StudentValidationException;
+    public void create(Student student) throws StudentAlreadyExistsException, StudentValidationException;
 
-    public void create(List<Student> students) throws StudentExistsException, StudentValidationException;
+    public void create(List<Student> students) throws StudentAlreadyExistsException, StudentValidationException;
 
     public Student retrieve(Long id);
 
@@ -14,7 +14,7 @@ public interface StudentService {
 
     public List<Student> retrieve();
 
-    public void update(Student student) throws StudentExistsException, StudentValidationException;
+    public void update(Student student) throws StudentAlreadyExistsException, StudentValidationException;
 
     public void delete(Long id);
 }

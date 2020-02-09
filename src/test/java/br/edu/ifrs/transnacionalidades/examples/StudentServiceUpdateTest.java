@@ -29,7 +29,7 @@ public class StudentServiceUpdateTest {
         student.setId(1L);
     }
 
-    public void success() throws StudentExistsException, StudentValidationException {
+    public void success() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -38,8 +38,8 @@ public class StudentServiceUpdateTest {
         studentService.update(student);
     }
 
-    @Test(expected = StudentExistsException.class)
-    public void failureStudentExists() throws StudentExistsException, StudentValidationException {
+    @Test(expected = StudentAlreadyExistsException.class)
+    public void failureStudentExists() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -52,7 +52,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failurePasswordMissing() throws StudentExistsException, StudentValidationException {
+    public void failurePasswordMissing() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -61,7 +61,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failurePasswordEmpty() throws StudentExistsException, StudentValidationException {
+    public void failurePasswordEmpty() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -70,7 +70,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failurePasswordBlank() throws StudentExistsException, StudentValidationException {
+    public void failurePasswordBlank() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -79,7 +79,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailMissing() throws StudentExistsException, StudentValidationException {
+    public void failureEmailMissing() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -88,7 +88,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailEmpty() throws StudentExistsException, StudentValidationException {
+    public void failureEmailEmpty() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 
@@ -97,7 +97,7 @@ public class StudentServiceUpdateTest {
     }
 
     @Test(expected = StudentValidationException.class)
-    public void failureEmailBlank() throws StudentExistsException, StudentValidationException {
+    public void failureEmailBlank() throws StudentAlreadyExistsException, StudentValidationException {
 
         assert studentService != null;
 

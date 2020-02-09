@@ -9,7 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import br.edu.ifrs.transnacionalidades.examples.Student;
-import br.edu.ifrs.transnacionalidades.examples.StudentExistsException;
+import br.edu.ifrs.transnacionalidades.examples.StudentAlreadyExistsException;
 import br.edu.ifrs.transnacionalidades.examples.StudentService;
 import br.edu.ifrs.transnacionalidades.examples.StudentValidationException;
 
@@ -36,7 +36,7 @@ public class DataInitializer implements ServletContextListener {
 
             studentService.create(students);
 
-        } catch (StudentExistsException | StudentValidationException e) {
+        } catch (StudentAlreadyExistsException | StudentValidationException e) {
 
             e.printStackTrace();
         }

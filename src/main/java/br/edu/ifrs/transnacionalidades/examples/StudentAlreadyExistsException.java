@@ -1,13 +1,13 @@
 package br.edu.ifrs.transnacionalidades.examples;
 
-public class StudentExistsException extends Exception {
+public class StudentAlreadyExistsException extends Exception {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    public StudentExistsException(String errorMessage) {
+    public StudentAlreadyExistsException(String errorMessage) {
         super(errorMessage);
     }
 }

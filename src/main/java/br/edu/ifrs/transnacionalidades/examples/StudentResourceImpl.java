@@ -29,7 +29,7 @@ public class StudentResourceImpl implements StudentResource {
 
             return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (StudentExistsException e) {
+        } catch (StudentAlreadyExistsException e) {
 
             return Response.status(Status.CONFLICT).entity(e.getMessage()).build();
         }
@@ -67,7 +67,7 @@ public class StudentResourceImpl implements StudentResource {
 
             return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (StudentExistsException e) {
+        } catch (StudentAlreadyExistsException e) {
 
             return Response.status(Status.CONFLICT).entity(e.getMessage()).build();
         }

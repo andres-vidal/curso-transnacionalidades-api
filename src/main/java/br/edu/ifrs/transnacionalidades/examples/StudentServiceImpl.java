@@ -15,7 +15,7 @@ public class StudentServiceImpl implements StudentService {
     @Inject
     private StudentDAO studentDAO;
 
-    private void checkUnicity(Student student) throws StudentExistsException {
+    private void checkUnicity(Student student) throws StudentAlreadyExistsException {
 
         Student persistedStudent = retrieve(student.getEmail());
 
@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
             if (isUnidentified || areTheSameEntity) {
 
                 String message = "A student with email " + student.getEmail() + " is already registered.";
-                throw new StudentExistsException(message);
+                throw new StudentAlreadyExistsException(message);
             }
         }
     }
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-    public void create(Student student) throws StudentExistsException, StudentValidationException {
+    public void create(Student student) throws StudentAlreadyExistsException, StudentValidationException {
 
         student.setId(null);
         validate(student);
@@ -51,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
         studentDAO.create(student);
     }
 
-    public void create(List<Student> students) throws StudentExistsException, StudentValidationException {
+    public void create(List<Student> students) throws StudentAlreadyExistsException, StudentValidationException {
 
         for (Student student : students)
             create(student);
@@ -72,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
         return studentDAO.retrieve();
     }
 
-    public void update(Student student) throws StudentExistsException, StudentValidationException {
+    public void update(Student student) throws StudentAlreadyExistsException, StudentValidationException {
 
         validate(student);
         checkUnicity(student);
@@ -81,6 +81,8 @@ public class StudentServiceImpl implements StudentService {
 
     public void delete(Long id) {
 
-        studentDAO.delete(id);
+        Student student = retrieve(id);
+
+        studentDAO.delete(student);
     }
 }
