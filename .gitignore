@@ -30,3 +30,5 @@ target/*
 .project
 .classpath
 .factorypath
+lib/bin/lib/x86_64-MacOSX-gpp/jni/libbarchart-udt-core-2.3.0-SNAPSHOT.jnilib
+log.txt
