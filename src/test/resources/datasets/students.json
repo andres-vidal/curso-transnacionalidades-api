@@ -1,0 +1,60 @@
+{
+  "Student": [
+    {
+      "id": "1",
+      "name": "Andres Vidal",
+      "dateOfBirth": "1997-08-06",
+      "email": "andres@example.com",
+      "password": "password"
+    },
+    {
+      "id": "2",
+      "name": "António Santos",
+      "dateOfBirth": "1995-04-01",
+      "email": "antonio.santos@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "3",
+      "name": "Cassandra Silva",
+      "dateOfBirth": "1996-04-01",
+      "email": "cassandra.silva@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "4",
+      "name": "Félix Cipriano",
+      "dateOfBirth": "1996-04-01",
+      "email": "felix.cipriano@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "5",
+      "name": "Marco Díaz",
+      "dateOfBirth": "1996-04-01",
+      "email": "marco.diaz@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "6",
+      "name": "Mateus Rebocho",
+      "dateOfBirth": "1996-04-01",
+      "email": "mateus.rebocho@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "7",
+      "name": "Nicanor Guterres",
+      "dateOfBirth": "1996-04-01",
+      "email": "nicanor.guterres@exemplo.com",
+      "password": "password"
+    },
+    {
+      "id": "8",
+      "name": "Tomás Silvestre",
+      "dateOfBirth": "1996-04-01",
+      "email": "tomas.silvestre@exemplo.com",
+      "password": "password"
+    }
+  ]
+}
