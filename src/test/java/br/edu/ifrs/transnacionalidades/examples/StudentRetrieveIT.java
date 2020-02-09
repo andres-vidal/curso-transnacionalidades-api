@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -30,9 +29,6 @@ import net.jcip.annotations.NotThreadSafe;
 @NotThreadSafe
 public class StudentRetrieveIT {
 
-    @Inject
-    private StudentDAO studentDAO;
-
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class).addClass(ApplicationResource.class)
@@ -51,8 +47,6 @@ public class StudentRetrieveIT {
     @ApplyScriptBefore("scripts/insert-students.sql")
     @Cleanup(phase = TestExecutionPhase.NONE)
     public void populateDatabase() {
-
-        System.out.println("\n\nDatabase populated with " + studentDAO.retrieve() + " entries.\n\n");
     }
 
     @Test
