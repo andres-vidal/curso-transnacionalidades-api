@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
-import javax.inject.Inject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
@@ -33,9 +32,6 @@ import net.jcip.annotations.NotThreadSafe;
 @NotThreadSafe
 public class StudentResourceCreateIT {
 
-    @Inject
-    private StudentDAO studentDAO;
-
     private Student student;
 
     @Deployment
@@ -55,8 +51,6 @@ public class StudentResourceCreateIT {
     @InSequence(1)
     @Cleanup(phase = TestExecutionPhase.AFTER)
     public void cleanupBefore() {
-
-        System.out.println("\n\n\n\n" + studentDAO.retrieve().size() + "\n\n\n\n");
     }
 
     @Test
