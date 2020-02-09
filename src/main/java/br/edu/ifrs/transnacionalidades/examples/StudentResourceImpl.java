@@ -57,9 +57,20 @@ public class StudentResourceImpl implements StudentResource {
 
     public Response update(final Long id, Student student) {
 
-        student.setId(id);
-        studentService.update(student);
-        return Response.status(Status.OK).build();
+        try {
+
+            student.setId(id);
+            studentService.update(student);
+            return Response.status(Status.OK).build();
+
+        } catch (StudentValidationException e) {
+
+            return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+
+        } catch (StudentExistsException e) {
+
+            return Response.status(Status.CONFLICT).entity(e.getMessage()).build();
+        }
     }
 
     public Response delete(final Long id) {

@@ -15,6 +15,22 @@ public class StudentServiceImpl implements StudentService {
     @Inject
     private StudentDAO studentDAO;
 
+    private void checkUnicity(Student student) throws StudentExistsException {
+
+        Student persistedStudent = retrieve(student.getEmail());
+
+        if (persistedStudent != null) {
+            boolean areTheSameEntity = !persistedStudent.getId().equals(student.getId());
+            boolean isUnidentified = student.getId() == null;
+
+            if (isUnidentified || areTheSameEntity) {
+
+                String message = "A student with email " + student.getEmail() + " is already registered.";
+                throw new StudentExistsException(message);
+            }
+        }
+    }
+
     private void validate(Student student) throws StudentValidationException {
 
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -29,15 +45,10 @@ public class StudentServiceImpl implements StudentService {
 
     public void create(Student student) throws StudentExistsException, StudentValidationException {
 
-        if (retrieve(student.getEmail()) == null) {
-
-            validate(student);
-            studentDAO.create(student);
-
-        } else {
-
-            throw new StudentExistsException("A student with email " + student.getEmail() + " is already registered.");
-        }
+        student.setId(null);
+        validate(student);
+        checkUnicity(student);
+        studentDAO.create(student);
     }
 
     public void create(List<Student> students) throws StudentExistsException, StudentValidationException {
@@ -61,8 +72,10 @@ public class StudentServiceImpl implements StudentService {
         return studentDAO.retrieve();
     }
 
-    public void update(Student student) {
+    public void update(Student student) throws StudentExistsException, StudentValidationException {
 
+        validate(student);
+        checkUnicity(student);
         studentDAO.update(student);
     }
 

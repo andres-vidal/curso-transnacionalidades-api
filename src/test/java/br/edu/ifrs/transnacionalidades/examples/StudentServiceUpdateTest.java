@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StudentServiceCreateTest {
+public class StudentServiceUpdateTest {
 
     @Mock
     private StudentDAO studentDAO;
@@ -35,7 +35,7 @@ public class StudentServiceCreateTest {
 
         when(studentDAO.retrieve(student.getEmail())).thenReturn(null);
 
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentExistsException.class)
@@ -44,11 +44,11 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         Student otherStudent = new Student();
-        otherStudent.setId(student.getId());
+        otherStudent.setId(2L);
 
         when(studentDAO.retrieve(student.getEmail())).thenReturn(otherStudent);
 
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -57,7 +57,7 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setPassword(null);
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -66,7 +66,7 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setPassword("");
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -75,7 +75,7 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setPassword("  ");
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -84,7 +84,7 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setEmail(null);
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -93,7 +93,7 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setEmail("");
-        studentService.create(student);
+        studentService.update(student);
     }
 
     @Test(expected = StudentValidationException.class)
@@ -102,6 +102,6 @@ public class StudentServiceCreateTest {
         assert studentService != null;
 
         student.setEmail("  ");
-        studentService.create(student);
+        studentService.update(student);
     }
 }
