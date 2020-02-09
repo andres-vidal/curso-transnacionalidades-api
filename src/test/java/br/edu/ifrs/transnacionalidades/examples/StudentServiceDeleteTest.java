@@ -30,7 +30,7 @@ public class StudentServiceDeleteTest {
     }
 
     @Test
-    public void success() throws StudentDoesNotExistsException {
+    public void success() throws StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -39,8 +39,8 @@ public class StudentServiceDeleteTest {
         studentService.delete(student.getId());
     }
 
-    @Test(expected = StudentDoesNotExistsException.class)
-    public void failureStudentDoesNotExist() throws StudentDoesNotExistsException {
+    @Test(expected = StudentDoesNotExistException.class)
+    public void failureStudentDoesNotExist() throws StudentDoesNotExistException {
 
         assert studentService != null;
 

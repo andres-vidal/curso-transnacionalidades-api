@@ -63,14 +63,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void update(Student student)
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         Student persistedStudent = retrieve(student.getId());
 
         if (persistedStudent == null) {
 
             String message = "There is no student registered with the id " + student.getId();
-            throw new StudentDoesNotExistsException(message);
+            throw new StudentDoesNotExistException(message);
         }
 
         student.setPassword(persistedStudent.getPassword());
@@ -85,14 +85,14 @@ public class StudentServiceImpl implements StudentService {
         studentDAO.update(student);
     }
 
-    public void delete(Long id) throws StudentDoesNotExistsException {
+    public void delete(Long id) throws StudentDoesNotExistException {
 
         Student student = retrieve(id);
 
         if (student == null) {
 
             String message = "There is no student registered with the id " + id;
-            throw new StudentDoesNotExistsException(message);
+            throw new StudentDoesNotExistException(message);
         }
 
         studentDAO.delete(student);

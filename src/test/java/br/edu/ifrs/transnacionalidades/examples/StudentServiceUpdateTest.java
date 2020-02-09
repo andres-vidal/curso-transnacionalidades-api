@@ -36,7 +36,7 @@ public class StudentServiceUpdateTest {
 
     @Test
     public void success()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -47,7 +47,7 @@ public class StudentServiceUpdateTest {
 
     @Test
     public void successOnEmailUpdate()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -59,7 +59,7 @@ public class StudentServiceUpdateTest {
 
     @Test(expected = StudentAlreadyExistsException.class)
     public void failureStudentAlreadyExists()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -69,9 +69,9 @@ public class StudentServiceUpdateTest {
         studentService.update(student);
     }
 
-    @Test(expected = StudentDoesNotExistsException.class)
+    @Test(expected = StudentDoesNotExistException.class)
     public void failureStudentDoesNotExist()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -82,7 +82,7 @@ public class StudentServiceUpdateTest {
 
     @Test
     public void sucessPasswordMissing()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -95,7 +95,7 @@ public class StudentServiceUpdateTest {
 
     @Test
     public void sucessPasswordEmpty()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -108,7 +108,7 @@ public class StudentServiceUpdateTest {
 
     @Test
     public void successPasswordBlank()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -121,7 +121,7 @@ public class StudentServiceUpdateTest {
 
     @Test(expected = StudentValidationException.class)
     public void failureEmailMissing()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -133,7 +133,7 @@ public class StudentServiceUpdateTest {
 
     @Test(expected = StudentValidationException.class)
     public void failureEmailEmpty()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 
@@ -145,7 +145,7 @@ public class StudentServiceUpdateTest {
 
     @Test(expected = StudentValidationException.class)
     public void failureEmailBlank()
-            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistsException {
+            throws StudentAlreadyExistsException, StudentValidationException, StudentDoesNotExistException {
 
         assert studentService != null;
 

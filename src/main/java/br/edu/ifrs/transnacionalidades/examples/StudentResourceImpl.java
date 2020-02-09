@@ -70,7 +70,7 @@ public class StudentResourceImpl implements StudentResource {
 
             return Response.status(Status.CONFLICT).entity(e.getMessage()).build();
 
-        } catch (StudentDoesNotExistsException e) {
+        } catch (StudentDoesNotExistException e) {
 
             return Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -83,7 +83,7 @@ public class StudentResourceImpl implements StudentResource {
             studentService.delete(id);
             return Response.status(Status.OK).build();
 
-        } catch (StudentDoesNotExistsException e) {
+        } catch (StudentDoesNotExistException e) {
 
             return Response.status(Status.NOT_FOUND).entity("There is no student with id " + id).build();
         }
