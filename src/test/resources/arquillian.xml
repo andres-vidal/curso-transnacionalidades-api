@@ -17,7 +17,6 @@
             <property name="managementPort">9990</property>
             <property name="username">richardburton</property>
             <property name="password">admin@richardburton</property>
-            <property name="allowConnectingToRunningServer">true</property>
         </configuration>
     </container>
 

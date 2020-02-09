@@ -5,35 +5,58 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 
+import javax.inject.Inject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.extension.rest.client.ArquillianResteasyResource;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.edu.ifrs.transnacionalidades.ApplicationResource;
+import net.jcip.annotations.NotThreadSafe;
+
 @RunWith(Arquillian.class)
-public class StudentResourceCreateIT extends StudentDeployments {
+@NotThreadSafe
+public class StudentResourceCreateIT {
+
+    @Inject
+    private StudentDAO studentDAO;
 
     private Student student;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class).addClass(ApplicationResource.class)
+                .addPackage(StudentResource.class.getPackage())
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
+    }
 
     @Before
     public void init() {
 
-        student = new Student("Andrés Vidal", LocalDate.of(1997, 8, 6), "andres.vidal@example.com", "password");
+        student = new Student("Andrés Vidal", LocalDate.of(1997, 8, 6), "andres.vidal1@example.com", "password");
     }
 
     @Test
     @InSequence(1)
+    @Cleanup(phase = TestExecutionPhase.AFTER)
     public void cleanupBefore() {
+
+        System.out.println("\n\n\n\n" + studentDAO.retrieve().size() + "\n\n\n\n");
     }
 
     @Test
@@ -64,6 +87,7 @@ public class StudentResourceCreateIT extends StudentDeployments {
 
     @Test
     @InSequence(3)
+    @Cleanup(phase = TestExecutionPhase.AFTER)
     public void cleanAfterSuccess() {
     }
 
@@ -89,6 +113,7 @@ public class StudentResourceCreateIT extends StudentDeployments {
 
     @Test
     @InSequence(5)
+    @Cleanup(phase = TestExecutionPhase.AFTER)
     public void cleanAfterFailureStudentExists() {
     }
 

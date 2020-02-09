@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebListener;
 import br.edu.ifrs.transnacionalidades.examples.Student;
 import br.edu.ifrs.transnacionalidades.examples.StudentExistsException;
 import br.edu.ifrs.transnacionalidades.examples.StudentService;
+import br.edu.ifrs.transnacionalidades.examples.StudentValidationException;
 
 @WebListener
 public class DataInitializer implements ServletContextListener {
@@ -35,7 +36,7 @@ public class DataInitializer implements ServletContextListener {
 
             studentService.create(students);
 
-        } catch (StudentExistsException e) {
+        } catch (StudentExistsException | StudentValidationException e) {
 
             e.printStackTrace();
         }

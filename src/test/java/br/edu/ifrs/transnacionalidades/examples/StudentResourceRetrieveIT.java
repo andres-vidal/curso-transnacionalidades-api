@@ -3,10 +3,14 @@ package br.edu.ifrs.transnacionalidades.examples;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.inject.Inject;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.extension.rest.client.ArquillianResteasyResource;
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,14 +18,31 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.arquillian.persistence.Cleanup;
 import org.jboss.arquillian.persistence.TestExecutionPhase;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.edu.ifrs.transnacionalidades.ApplicationResource;
+import net.jcip.annotations.NotThreadSafe;
+
 @RunWith(Arquillian.class)
-public class StudentResourceRetrieveIT extends StudentDeployments {
+@NotThreadSafe
+public class StudentResourceRetrieveIT {
+
+    @Inject
+    private StudentDAO studentDAO;
+
+    @Deployment(testable = true)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class).addClass(ApplicationResource.class)
+                .addPackage(StudentResource.class.getPackage())
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
+    }
 
     @Test
     @InSequence(1)
+    @Cleanup(phase = TestExecutionPhase.AFTER)
     public void cleanupBefore() {
     }
 
@@ -30,6 +51,8 @@ public class StudentResourceRetrieveIT extends StudentDeployments {
     @ApplyScriptBefore("scripts/insert-students.sql")
     @Cleanup(phase = TestExecutionPhase.NONE)
     public void populateDatabase() {
+
+        System.out.println("\n\nDatabase populated with " + studentDAO.retrieve() + " entries.\n\n");
     }
 
     @Test
@@ -61,6 +84,9 @@ public class StudentResourceRetrieveIT extends StudentDeployments {
 
         final Response response = studentResource.retrieve();
 
-        System.out.println("\n\n\n" + response.readEntity(String.class) + "\n\n\n");
+        List<Student> students = response.readEntity(new GenericType<List<Student>>() {
+        });
+
+        assertEquals(8, students.size());
     }
 }

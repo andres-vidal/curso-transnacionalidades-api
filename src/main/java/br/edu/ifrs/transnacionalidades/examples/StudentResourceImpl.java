@@ -3,7 +3,6 @@ package br.edu.ifrs.transnacionalidades.examples;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -21,13 +20,14 @@ public class StudentResourceImpl implements StudentResource {
         }
 
         try {
+
             student.setPassword(password);
             studentService.create(student);
             return Response.status(Status.CREATED).entity(student).build();
 
-        } catch (ConstraintViolationException e) {
+        } catch (StudentValidationException e) {
 
-            return Response.status(Status.BAD_REQUEST).entity(e.getConstraintViolations()).build();
+            return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 
         } catch (StudentExistsException e) {
 

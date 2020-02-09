@@ -1,9 +1,13 @@
 package br.edu.ifrs.transnacionalidades.examples;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 @Stateless
 public class StudentService {
@@ -11,9 +15,18 @@ public class StudentService {
     @Inject
     private StudentDAO studentDAO;
 
-    public void create(Student student) throws StudentExistsException {
+    public void create(Student student) throws StudentExistsException, StudentValidationException {
 
         if (retrieve(student.getEmail()) == null) {
+
+            Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+            Set<ConstraintViolation<Student>> violations = validator.validate(student);
+
+            if (violations.size() > 0) {
+
+                String message = "Student validation failed. Violations are: " + violations.toString();
+                throw new StudentValidationException(message, violations);
+            }
 
             studentDAO.create(student);
 
@@ -23,7 +36,7 @@ public class StudentService {
         }
     }
 
-    public void create(List<Student> students) throws StudentExistsException {
+    public void create(List<Student> students) throws StudentExistsException, StudentValidationException {
 
         for (Student student : students)
             create(student);
