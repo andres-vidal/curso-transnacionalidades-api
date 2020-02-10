@@ -24,7 +24,7 @@ import net.jcip.annotations.NotThreadSafe;
 
 @RunWith(Arquillian.class)
 @NotThreadSafe
-public class StudentDeleteIT {
+public class StudentClientDeleteIT {
 
     @Inject
     private StudentDAO studentDAO;

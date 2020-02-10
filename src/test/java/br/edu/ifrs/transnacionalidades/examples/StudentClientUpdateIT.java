@@ -30,7 +30,7 @@ import net.jcip.annotations.NotThreadSafe;
 
 @RunWith(Arquillian.class)
 @NotThreadSafe
-public class StudentUpdateIT {
+public class StudentClientUpdateIT {
 
     private Student student;
 

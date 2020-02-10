@@ -27,7 +27,7 @@ import net.jcip.annotations.NotThreadSafe;
 
 @RunWith(Arquillian.class)
 @NotThreadSafe
-public class StudentRetrieveIT {
+public class StudentClientRetrieveIT {
 
     @Deployment(testable = true)
     public static WebArchive createDeployment() {
