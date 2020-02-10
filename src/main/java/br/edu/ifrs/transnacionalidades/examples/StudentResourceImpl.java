@@ -13,9 +13,14 @@ public class StudentResourceImpl implements StudentResource {
 
     public Response create(Student student, String password) {
 
-        if (student == null || password == null) {
+        if (password == null) {
 
             return Response.status(Status.BAD_REQUEST).entity("student-password header is missing.").build();
+        }
+
+        if (student == null) {
+
+            return Response.status(Status.BAD_REQUEST).entity("A student to create is missing").build();
         }
 
         try {
@@ -55,6 +60,11 @@ public class StudentResourceImpl implements StudentResource {
     }
 
     public Response update(final Long id, Student student) {
+
+        if (student == null) {
+
+            return Response.status(Status.BAD_REQUEST).entity("Updated student data is missing").build();
+        }
 
         try {
 
