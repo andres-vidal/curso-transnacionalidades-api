@@ -3,60 +3,21 @@ package br.edu.ifrs.transnacionalidades.examples;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 @Stateless
-public class StudentDAO {
+public interface StudentDAO {
 
-    @PersistenceContext
-    private EntityManager em;
+    public void create(Student student);
 
-    public void create(Student student) {
+    public void update(Student student);
 
-        em.persist(student);
-    }
+    public void delete(Long id);
 
-    public void update(Student student) {
+    public void delete(Student student);
 
-        em.merge(student);
-    }
+    public Student retrieve(Long id);
 
-    public void delete(Long id) {
+    public Student retrieve(String email);
 
-        Student student = em.getReference(Student.class, id);
-        em.remove(student);
-    }
-
-    public void delete(Student student) {
-
-        em.remove(student);
-    }
-
-    public Student retrieve(Long id) {
-
-        return em.find(Student.class, id);
-    }
-
-    public Student retrieve(String email) {
-
-        TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE s.email = :email", Student.class);
-        query.setParameter("email", email);
-
-        try {
-
-            return query.getSingleResult();
-
-        } catch (NoResultException e) {
-
-            return null;
-        }
-    }
-
-    public List<Student> retrieve() {
-
-        return em.createQuery("SELECT s FROM Student s", Student.class).getResultList();
-    }
+    public List<Student> retrieve();
 }
