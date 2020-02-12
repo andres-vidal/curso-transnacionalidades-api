@@ -16,19 +16,18 @@ public class Pesquisador extends Pessoa {
     private String afiliacao;
     private String ocupacao;
 
-    public Pesquisador() {}
+    public Pesquisador() {
+    }
 
-    public Pesquisador(String nome, String sobrenome, String email,
-                       String nacionalidade, String afiliacao, String ocupacao) {
-        
+    public Pesquisador(String nome, String sobrenome, @NotBlank String email, String nacionalidade, String afiliacao,
+            String ocupacao) {
         super(nome, sobrenome);
         this.email = email;
         this.nacionalidade = nacionalidade;
         this.afiliacao = afiliacao;
         this.ocupacao = ocupacao;
-
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -37,11 +36,11 @@ public class Pesquisador extends Pessoa {
         this.email = email;
     }
 
-    public String getNacionaliade() {
+    public String getNacionalidade() {
         return nacionalidade;
     }
 
-    public void setNacionaliade(String nacionalidade) {
+    public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
 
@@ -59,8 +58,6 @@ public class Pesquisador extends Pessoa {
 
     public void setOcupacao(String ocupacao) {
         this.ocupacao = ocupacao;
-    }
-
-    
+    }  
 
 }
