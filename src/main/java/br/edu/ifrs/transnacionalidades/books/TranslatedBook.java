@@ -2,6 +2,7 @@ package br.edu.ifrs.transnacionalidades.books;
 
 import java.time.Year;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class TranslatedBook extends Book {
 
     @Past
     @NotNull
+    @Convert(converter = YearConverter.class)
     private Year year;
 
     @NotNull
